@@ -1,0 +1,164 @@
+<div>
+    <h5>Lineup Setup Page</h5>
+    <div class="row">
+        <div class="large-9 column">
+            <h5>{{ contest.con_title }}</h5>
+            Starts {{contest.con_start_time | asDate | date: 'EEEE, h:mm a'}} EST
+            (<span class="link" ng-click="openGamePopup()">{{ contest.matches.length }} NBA Games</span>)
+        </div>
+        <div class="large-3 column">
+            <div class="contest-header-status">
+                <div class="title">ENTRIES</div>
+                <div>{{ contest.con_entry_count }}/{{ contest.con_entry_limit }}</div>
+            </div>
+            <div class="contest-header-status">
+                <div class="title">ENTRY FEE</div>
+                <div>{{ contest.con_entry_fee | asDollar }}</div>
+            </div>
+            <div class="contest-header-status">
+                <div class="title">PRIZE</div>
+                <div>{{ contest.con_total_prize }}</div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="column large-7">
+            <div class="row column">
+                <div class="sly-horizontal wrap">
+                    <div class="controls left">
+                        <button class="btn prevPage">
+                            <i class="fa fa-angle-left fa-1x" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="frame" id="match">
+                        <ul class="clearfix">
+                            <li ng-repeat="match in contest.matches" sly-horizontal-repeat
+                                data-sly-options="{speed: 300,mouseDragging:0}">
+                                <div class="item">
+                                    <div class="date">{{ match.mtc_start_time | asDate | date: 'EEEE, h:mm a' }}</div>
+                                    <div class="abbr">{{ match.home_team.abbr }}</div>
+                                    <div class="abbr">{{ match.away_team.abbr }}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--<ul class="pages"></ul>-->
+                    <div class="controls right">
+                        <button class="btn nextPage">
+                            <i class="fa fa-angle-right fa-1x" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row column">
+                <div class="row">
+                    <div class="large-8 column">
+                        <div class="small button-group">
+                            <a class="button {{ search_pos == '' ? 'success' : ''}}"
+                               ng-click="set_search('')">All</a>
+                            <a class="button {{ search_pos == pos_filter.pos_eligible_positions ? 'success' : ''}}"
+                               ng-click="set_search(pos_filter.pos_eligible_positions)"
+                               ng-repeat="pos_filter in contest.positions">{{ pos_filter.pos_key }}</a>
+                        </div>
+                    </div>
+                    <div class="large-4 column">
+                        <input type="text" ng-model="search.$" ng-change="set_search('')">
+                    </div>
+                </div>
+                <div>{{ players.length }}</div>
+                <div class="scroll-body"
+                     slimscroll="{size: '5',height: 600, scrollBy: '5', wheelStep: 5, distance: 0 }">
+                    <table>
+                        <tr ng-repeat="player in (filter_pos() | filter: search.$ | orderBy:'-player_salary')">
+                            <td>
+                                <img ng-src="{{ player.player_image_url }}"/>
+                            </td>
+                            <td>
+                                {{ player.player_primary_position }}
+                            </td>
+                            <td></td>
+                            <td>
+                                <a ng-click="openPlayerProfile(player.player_code)">
+                                    {{ player.player_firstname}} {{ player.player_lastname }}
+                                </a>
+                            </td>
+                            <td>
+                                <strong>{{ player.team.abbr }}</strong>{{ player.game.opponent }}
+                            </td>
+                            <td>
+                                {{ player.player_fantasy_points_per_game | number:1 }}
+                            </td>
+                            <td>
+                                {{ player.player_salary | asDollar}}
+                            </td>
+                            <td>
+                                <button class="button round {{ player.on_line ? 'alert' : '' }}"
+                                        ng-click="toggle_player(player.player_code)">
+                                    {{ player.on_line ? '-' : '+' }}
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="column large-5">
+            <div class="row align-stretch">
+                <div class="contest-header-status column small-3">
+                    <div class="title">BUDGET</div>
+                    <div class="salary_cap {{ salary_cap < 0 ? 'not_ok' : 'ok' }}">
+                        {{ salary_cap | asDollar }}
+                    </div>
+                </div>
+                <div class="contest-header-status columns small-6">
+                    <div class="title">AVG. SALARY REMAINING</div>
+                    <div>
+                        <strong>{{ avg_remain_salary().salary | number:0 | asDollar }}</strong>
+                        <span>({{ avg_remain_salary().player  }} Players)</span>
+                    </div>
+                </div>
+                <div class="contest-header-status columns small-3">
+                    <div class="title">AVG. FPPG</div>
+                    <div>{{ avg_fppg() | number:1 }}</div>
+                </div>
+            </div>
+            <table class="lineup">
+                <tr ng-repeat="position in contest.positions" class="player"
+                    ng-click="set_search_pos(position.pos_eligible_positions, lineup[$index].player_code, $index)">
+                    <td>
+                        <div class="image" background-image="{{lineup[$index].player_image_url}}">
+                        </div>
+                    </td>
+                    <td></td>
+                    <td>{{ position.pos_key }}</td>
+                    <td>
+                        <button class="alert button round"
+                                ng-show="lineup[$index]"
+                                ng-click="toggle_player(lineup[$index].player_code)">
+                            {{ !player.on_line ? '-' : '+' }}
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <div ng-show="get_lineup_size()">
+                <span ng-click="clear_lineup()">Clear lineup</span>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="large-8 column">
+            <div>{{ get_lineup_size() }} players selected</div>
+            <div>{{ get_msg() }}</div>
+        </div>
+        <div class="large-4 column text-right">
+            <button class="button {{ is_full() ? '' : 'disabled' }}"
+                    ng-disabled="!is_full()"
+                    ng-click="enter_contest()">
+                Submit lineup
+            </button>
+        </div>
+    </div>
+</div>

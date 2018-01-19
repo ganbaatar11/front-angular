@@ -1,0 +1,509 @@
+/*angular-sly START*/
+.sly-horizontal {
+    overflow: hidden;
+    border: 1px solid #e2e2e6;
+    margin-bottom: 1.25rem;
+}
+/* Example wrapper */
+.sly-horizontal .wrap {
+    position: relative;
+    margin: 3em 0;
+}
+
+/* Frame */
+.sly-horizontal .frame {
+    overflow: hidden;
+    width: calc(100% - 44px);
+    float: left;
+    border: 0 solid #e2e2e6;
+    border-right-width: 1px;
+    border-left-width: 1px;
+}
+
+.sly-horizontal .frame ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.sly-horizontal .frame ul li {
+    float: left;
+    width: 100px;
+    height: 100%;
+    margin: 0 1px 0 0;
+    padding: 0;
+    text-align: left;
+    color: #333;
+    cursor: pointer;
+    border: 0 solid #e2e2e6;
+    border-right-width: 1px;
+    font-size: 12px;
+    line-height: 13px;
+}
+.sly-horizontal .frame ul li:hover{
+    background: #f3f3f3;
+}
+
+.sly-horizontal .frame ul li .item .abbr{
+    color: #333;
+}
+
+.sly-horizontal .frame ul li .item .date{
+    color: #959595;
+}
+
+.sly-horizontal .frame ul li:hover .item .abbr{
+    color: #0078FF;
+}
+
+.sly-horizontal .frame ul li .item {
+    /*#0078FF #e2e2e6 #f3f3f3*/
+    margin: 6px 8px;
+}
+
+/* Scrollbar */
+.sly-horizontal .scrollbar {
+    margin: 0 0 1em 0;
+    height: 2px;
+    background: #ccc;
+    line-height: 0;
+}
+
+.sly-horizontal .scrollbar .handle {
+    width: 100px;
+    height: 100%;
+    background: #292a33;
+    cursor: pointer;
+}
+
+.sly-horizontal .scrollbar .handle .mousearea {
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+}
+
+/* Pages */
+.sly-horizontal .pages {
+    list-style: none;
+    margin: 20px 0;
+    padding: 0;
+    text-align: center;
+}
+
+.sly-horizontal .pages li {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 0 4px;
+    text-indent: -999px;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+}
+
+.sly-horizontal .pages li:hover {
+    background: #aaa;
+}
+
+.sly-horizontal .pages li.active {
+    background: #666;
+}
+
+/* Controls */
+.sly-horizontal .controls {
+    text-align: center;
+    float: left;
+    width: 22px;
+    min-height: 60px;
+}
+
+.sly-horizontal .controls .prevPage,
+.sly-horizontal .controls .nextPage {
+    margin: 23px 0;
+    height: 18px;
+}
+
+/* One Item Per Frame example*/
+.sly-horizontal .oneperframe {
+    height: 300px;
+    line-height: 300px;
+}
+
+.sly-horizontal .oneperframe ul li {
+    width: 1140px;
+}
+
+.sly-horizontal .oneperframe ul li.active {
+    background: #333;
+}
+
+/* Crazy example */
+.sly-horizontal .crazy ul li:nth-child(2n) {
+    width: 100px;
+    margin: 0 4px 0 20px;
+}
+
+.sly-horizontal .crazy ul li:nth-child(3n) {
+    width: 300px;
+    margin: 0 10px 0 5px;
+}
+
+.sly-horizontal .crazy ul li:nth-child(4n) {
+    width: 400px;
+    margin: 0 30px 0 2px;
+}
+
+/* Effects */
+.sly-horizontal .effects {
+    height: 200px;
+    line-height: 200px;
+    -webkit-perspective: 800px;
+    -ms-perspective: 800px;
+    perspective: 800px;
+    -webkit-perspective-origin: 50% 50%;
+    -ms-perspective-origin: 50% 50%;
+    perspective-origin: 50% 50%;
+    overflow-y: show;
+}
+
+.sly-horizontal .effects ul {
+    -webkit-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+.sly-horizontal .effects ul li {
+    position: relative;
+    margin: 0 -20px;
+    -webkit-transform: rotateY(60deg) scale(0.9);
+    -ms-transform: rotateY(60deg) scale(0.9);
+    transform: rotateY(60deg) scale(0.9);
+    -webkit-transition: -webkit-transform 300ms ease-out;
+    transition: transform 300ms ease-out;
+}
+
+.sly-horizontal .effects ul li.active {
+    z-index: 10;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+}
+
+.sly-horizontal .effects ul li.active ~ li {
+    -webkit-transform: rotateY(-60deg) scale(0.9);
+    -ms-transform: rotateY(-60deg) scale(0.9);
+    transform: rotateY(-60deg) scale(0.9);
+}
+/*angular-sly END*/
+html,body {
+    background: linear-gradient(117deg,#006888,#3fdaaa);
+}
+
+div.header {
+    /*height: 140px;*/
+    /*background-size: cover;*/
+    /*background-position: 50% 0;*/
+    /*background-repeat: no-repeat;*/
+    /*background-image: url(/assets/img/header.jpg);*/
+}
+
+div#header-nav .top-bar,
+div#header-nav .top-bar ul {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+div#header-nav .menu a {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+div#header-nav .menu a:hover {
+    color: #f1f1f1;
+    text-decoration: underline;
+}
+
+div#sub-header {
+    background-color: rgba(0,0,0,0.3);
+}
+
+div#sub-header .menu > li > a {
+    text-transform: capitalize;
+    padding: .4rem 1rem;
+    font-size: 13px;
+    color: #fff;
+}
+
+div#sub-header .menu > li > a:hover,
+div#sub-header .menu > li.active > a {
+    color: #fff;
+    background: inherit;
+    text-decoration: underline;
+}
+
+div.ma-container {
+    /*margin: 20px 0;*/
+}
+
+div.wrapper {
+    margin-bottom: 4rem;
+}
+
+div#main-container {
+    background-color: #ffffff;
+}
+
+.max-400 {
+    max-width: 400px;
+}
+
+select.small-select {
+    width: auto;
+}
+
+div.select-group {
+    float: left;
+    margin-right: 20px;
+}
+
+label {
+    color: #848484;
+}
+
+.contest-header-status {
+    display: inline-block;
+    text-align: center;
+}
+
+.contest-header-status .title {
+    color: #e3ddc9;
+}
+
+table.lineup tr.player .image {
+    height: 40px;
+    background-size: 100%;
+    width: 40px;
+    max-width: 100%;
+    background: no-repeat top;
+}
+
+.ok {
+    color: #00c073;
+}
+
+.not_ok {
+    color: #e7252e;
+}
+
+span.link {
+    color: #0078ff;
+    cursor: pointer;
+}
+
+.popeye-modal-container {
+    background-color: rgba(0, 0, 0, .7);
+}
+
+ul.lineup-horizontal {
+    margin: .55em 0;
+}
+
+ul.lineup-horizontal > li {
+    display: inline-block;
+}
+
+ul.lineup-horizontal > li:not(:first-child) div.player {
+    margin: .55em 0;
+    padding: 0 10px;
+    border-left: 1px solid #e7e7e7;
+}
+
+div.upcoming-helper {
+    background: #f3f3f3;
+    padding: 25px 20px 40px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+div.upcoming-helper div.time {
+    height: 160px;
+    line-height: 160px;
+    font-size: 60px;
+    color: #959595;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.w-45 {
+    width: 45%;
+}
+
+.w-10 {
+    width: 10%;
+}
+
+.w-8 {
+    width: calc(100% / 8);
+}
+
+div.live-lineup {
+    display: inline-table;
+    padding: 0;
+    margin: 0;
+}
+
+table.self-lineup thead tr {
+
+}
+
+table.self-lineup,
+table.pos {
+
+}
+
+table.self-lineup thead,
+table.self-lineup tbody {
+    border-left: none;
+}
+
+table.self-lineup tbody tr,
+table.pos tbody tr {
+    height: 61px;
+    vertical-align: middle;
+}
+
+table.self-lineup thead th,
+table.self-lineup tbody td,
+table.pos thead th,
+table.pos tbody td,
+table.users tbody td,
+table.users thead th {
+    border-bottom: 1px solid #e7e7e7;
+    background: #f3f3f3;
+    color: #000;
+    font-size: 11px;
+    line-height: 14px;
+    font-weight: normal;
+    text-align: center;
+    padding: 8px 2px;
+}
+
+table.self-lineup tbody td,
+table.users tbody td {
+    background: #fff;
+    padding: 0;
+    font-size: 13px;
+    line-height: 16px;
+}
+
+table.users tbody td {
+    border-bottom: none;
+}
+
+table.users tbody tr {
+    cursor: pointer;
+    border-top: 1px solid #e7e7e7;
+}
+
+table.users tbody tr.separator {
+    border: none;
+}
+
+table.users tbody tr.separator > td {
+    padding: 1px;
+    height: 5px;
+    border: none;
+}
+
+table.users img.profile-picture {
+    height: 30px;
+    margin-right: 10px;
+}
+
+table.users .user-info {
+    padding: 4px 0;
+    text-align: left;
+}
+
+table.self-lineup .image {
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    background-size: 100%;
+    max-width: 100%;
+    background: no-repeat top;
+    margin-left: 45px;
+    vertical-align: middle;
+}
+
+table.self-lineup tbody .detail {
+    text-align: right;
+}
+
+table.self-lineup.reverse tbody .detail {
+    text-align: left;
+}
+
+table.self-lineup.reverse .image {
+    margin-right: 45px;
+    margin-left: 0;
+}
+
+table.self-lineup tbody .detail .info {
+    max-width: 69%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+table.self-lineup tbody .detail .stats,
+table.self-lineup tbody .detail .team {
+    font-size: 11px;
+    line-height: 14px;
+}
+
+table.self-lineup tbody .detail .stats {
+    color: #333;
+
+}
+
+table.self-lineup tbody .detail .team {
+    color: #959595;
+}
+
+table.self-lineup tbody .detail .name {
+    font-size: 13px;
+    line-height: 16px;
+}
+
+table.self-lineup tbody a,
+table.users tbody a {
+    color: #333;
+}
+
+table.self-lineup tbody a:hover,
+table.users tbody a:hover {
+    text-decoration: underline;
+}
+
+.button.hollow.white,
+.button.hollow.white:hover {
+    border-radius: 2px;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+span.user-name {
+    color: #fff;
+    text-transform: capitalize;
+}
+
+span.user-name a:hover {
+    text-decoration: underline;
+}

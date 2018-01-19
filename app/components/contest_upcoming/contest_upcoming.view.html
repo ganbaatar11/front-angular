@@ -1,0 +1,60 @@
+<div>
+    <div class="row column">
+        <h5>My Upcoming Contests</h5>
+        <hr>
+    </div>
+    <div class="row align-middle" ng-repeat="lineup in lineups">
+        <div class="small-12 columns">
+            <div class="float-left align-self-middle">
+                <span>Your Lineup in this contest</span>
+            </div>
+            <div class="float-right align-self-middle">
+                <a class="button" ng-click="export()">Export Lineup</a>
+                <a class="button">Edit Lineup</a>
+            </div>
+        </div>
+        <div class="small-12 columns">
+            <ul class="lineup-horizontal">
+                <li ng-repeat="slot in lineup.lineup_slots" class="{{ 'w-' + lineup_slots.length }}">
+                    <div class="player">
+                        <div>{{ contest.positions[$index].pos_key }}</div>
+                        <img ng-src="{{ slot.player.player_image_url }}" alt="">
+                        <div>{{ slot.player.player_firstname }}</div>
+                        <div>{{ slot.player.player_lastname }}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="small-12 columns">
+            <table>
+                <thead>
+                <th>Contests with this Lineup</th>
+                <th>Entries</th>
+                <th>Entry Fee</th>
+                <th>Prize Pool</th>
+                <th>Places Paid</th>
+                <th></th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <a ui-sref="lineupUpcoming({contest_id:lineup.contest.con_id,entry_id: lineup.entry_id})">
+                            {{ lineup.contest.con_title }}
+                        </a>
+                    </td>
+                    <td>{{ lineup.contest.con_entry_count }}/{{ lineup.contest.con_entry_limit }}</td>
+                    <td>{{ lineup.contest.con_entry_fee | asDollar }}</td>
+                    <td>{{ lineup.contest.con_total_prize | asDollar }}</td>
+                    <td>0</td>
+                    <td><a ui-sref="lineupUpcoming({contest_id:lineup.contest.con_id,entry_id: lineup.entry_id})"
+                           class="hollow button">
+                        View Contest
+                    </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

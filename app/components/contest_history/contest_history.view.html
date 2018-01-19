@@ -1,0 +1,36 @@
+<div>
+    <h5>Contest History</h5>
+    <div class="row">
+        <div class="column large-12">
+            <table>
+                <thead>
+                <tr>
+                    <th>Contest Name</th>
+                    <th>Date (ET)</th>
+                    <th>Points (Rank)</th>
+                    <th>Entry Fee</th>
+                    <th>Winnings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="lineup in lineups">
+                    <td>
+                        <a ui-sref="lineupLive({contest_id:lineup[0].contest.con_id,entry_id: lineup[0].entry_id})">
+                            {{ lineup[0].contest.con_title }}
+                        </a>
+                    </td>
+                    <td>{{ lineup[0].contest.con_start_time | asDate | date:'MMM d, h:mm a'}}</td>
+                    <td>{{ lineup[0].user_points }}</td>
+                    <td>{{ lineup[0].contest.con_entry_fee | asDollar }}</td>
+                    <td></td>
+                </tr>
+                </tbody>
+            </table>
+            <!--<ul>-->
+                <!--<li ng-repeat="lineup in lineups">-->
+                    <!--<pr>{{ lineup }}</pr>-->
+                <!--</li>-->
+            <!--</ul>-->
+        </div>
+    </div>
+</div>

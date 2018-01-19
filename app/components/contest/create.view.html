@@ -1,0 +1,108 @@
+<div class="small-12 column row">
+    <!--<img src="http://foundation.zurb.com/sites/docs/assets/img/generic/rectangle-5.jpg" alt="">-->
+    <form name="myForm">
+        <div class="row column">
+            <div class="select-group">
+                <label for="total_entrants">Entry Count:</label>
+                <select id="total_entrants"
+                        ng-model="contest.total_entrants"
+                        ng-change="change_name(contest.entry_fee | asDollar)"
+                        ng-options="n as n | head2head for n in [] | range1:2:21">
+                </select>
+            </div>
+            <div class="select-group">
+                <label for="entry_fee">Entry Fee:</label>
+                <select id="entry_fee"
+                        ng-change="change_name(contest.entry_fee | asDollar)"
+                        ng-options="entry_fee as entry_fee | asDollar for entry_fee in option.entry_fee"
+                        ng-model="contest.entry_fee">
+                </select>
+            </div>
+            <div class="select-group">
+                <label for="prize_structure">Prize Structure:</label>
+                <select id="prize_structure"
+                        ng-change="change_name(contest.entry_fee | asDollar)"
+                        ng-options="ps.val as ps.text for ps in option.prize_structure"
+                        ng-model="contest.prize_structure">
+                </select>
+            </div>
+            <div class="select-group" ng-show="contest.prize_structure > 0">
+                <span>Prize:</span>
+                <span>1$</span>
+            </div>
+        </div>
+        <div class="row" ng-show="contest.total_entrants > 2">
+            <div class="small-12 medium-6 large-4 columns max-400">
+                <label>Contest Name:
+                    <input type="text" name="contest_name" placeholder="{{ contest.name }}"
+                           ng-model="contest.name">
+                </label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-6 large-4 columns">
+                <label for="ych_code">Make a choice:</label>
+                <select id="ych_code" class="max-400"
+                        ng-options="holder as (holder.ych_start_time | asDate | date: 'EEEE, h:mm a' ) + (' ('+holder.matches.length + ' NBA Games)')
+                        for holder in holders track by holder.ych_code"
+                        ng-model="holder" ng-change="reloadSly('#holderMatches')">
+                </select>
+            </div>
+        </div>
+        <div class="row column">
+            <div class="sly-horizontal wrap">
+                <div class="controls left">
+                    <button class="btn prevPage" sly-frame="match">
+                        <i class="fa fa-angle-left fa-1x" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="frame" id="match">
+                    <ul class="clearfix">
+                        <li ng-repeat="match in holder.matches" sly-horizontal-repeat
+                            data-sly-options="{speed: 300,mouseDragging:0}">
+                            <div class="item">
+                                <div class="date">{{ match.mtc_start_time | asDate | date: 'EEEE, h:mm a' }}</div>
+                                <div class="abbr">{{ match.home_team.abbr }}</div>
+                                <div class="abbr">{{ match.away_team.abbr }}</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--<ul class="pages"></ul>-->
+                <div class="controls right">
+                    <button class="btn nextPage" sly-frame="match">
+                        <i class="fa fa-angle-right fa-1x" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <fieldset class="large-12 columns">
+                <legend>Choose Your Favorite</legend>
+                <input type="radio" name="pokemon" value="Red" id="pokemonRed" required>
+                <label for="pokemonRed">
+                    <span>Private
+                        <div>Games are invite only. Games will not be posted in our lobby.</div>
+                    </span>
+                </label>
+                <input type="radio" name="pokemon" value="Blue" id="pokemonBlue">
+                <label for="pokemonBlue">
+                    <span>Public
+                        <div>Games are posted in our lobby and available for anyone to join.</div>
+                    </span>
+                </label>
+            </fieldset>
+        </div>
+        <div class="row">
+            <div class="small-12 medium-6 large-8 column">
+                <p>helloehelloehelloehe</p>
+            </div>
+            <div class="small-12 medium-6 large-4 column text-right">
+                <button type="button" class="button" ng-click="create_contest()">Submit</button>
+            </div>
+        </div>
+    </form>
+    <hr>
+</div>

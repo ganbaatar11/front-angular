@@ -1,0 +1,33 @@
+<div>
+    <h5>Contest List</h5>
+    <div class="row">
+        <div class="column large-12">
+            <table>
+                <thead>
+                <tr>
+                    <th>Contest</th>
+                    <th>Entries/Size</th>
+                    <th>Entry</th>
+                    <th>Prizes</th>
+                    <th>Starts(ET)</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="contest in contests">
+                    <td>
+                        <a ng-click="show_contest($index)">
+                            {{ contest.con_title }}
+                        </a>
+                    </td>
+                    <td>{{ contest.con_entry_count }}/{{ contest.con_entry_limit }}</td>
+                    <td>{{ contest.con_entry_fee | asDollar }}</td>
+                    <td>{{ contest.con_total_prize | asDollar }}</td>
+                    <td>{{ contest.con_start_time | asDate | date:'MMM d, h:mm a'}}</td>
+                    <td><a class="hollow button" ui-sref="lineup({contest_id: contest.con_id})">Enter Contest</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

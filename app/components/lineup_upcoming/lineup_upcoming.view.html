@@ -1,0 +1,82 @@
+<div>
+    <h5>Upcoming Lineup Page</h5>
+    <div class="row">
+        <div class="large-9 column">
+            <h5>{{ contest.con_title }}</h5>
+            Starts {{contest.con_start_time | asDate | date: 'EEEE, h:mm a'}} EST
+            (<span class="link" ng-click="openGamePopup()">{{ contest.matches.length }} NBA Games</span>)
+        </div>
+        <div class="large-3 column">
+            <div class="contest-header-status">
+                <div class="title">ENTRIES</div>
+                <div>{{ contest.con_entry_count }}/{{ contest.con_entry_limit }}</div>
+            </div>
+            <div class="contest-header-status">
+                <div class="title">ENTRY FEE</div>
+                <div>{{ contest.con_entry_fee | asDollar }}</div>
+            </div>
+            <div class="contest-header-status">
+                <div class="title">PRIZE</div>
+                <div>{{ contest.con_total_prize }}</div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row column">
+        <div class="upcoming-helper">
+            <div class="time" countdown='' date='{{ contest.matches[0].mtc_start_time }}'>&nbsp;</div>
+        </div>
+    </div>
+
+    <div class="row column align-middle">
+        <div class="float-left align-self-middle">
+            <span>Your Lineup in thi contest</span>
+        </div>
+        <div class="float-right align-self-middle">
+            <a class="button" ng-click="export()">Export Lineup</a>
+            <a class="button">Edit Lineup</a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row column">
+        <ul class="lineup-horizontal">
+            <li ng-repeat="slot in lineup_slots" class="{{ 'w-' + lineup_slots.length }}">
+                <div class="player">
+                    <div>{{ contest.positions[$index].pos_key }}</div>
+                    <img ng-src="{{ slot.player.player_image_url }}" alt="">
+                    <div>{{ slot.player.player_firstname }}</div>
+                    <div>{{ slot.player.player_lastname }}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="row column">
+        <div class="sly-horizontal wrap">
+            <div class="controls left">
+                <button class="btn prevPage" sly-frame="match">
+                    <i class="fa fa-angle-left fa-1x" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="frame" id="match">
+                <ul class="clearfix">
+                    <li ng-repeat="match in contest.matches" sly-horizontal-repeat
+                        data-sly-options="{speed: 300,mouseDragging:0}">
+                        <div class="item">
+                            <div class="date">{{ match.mtc_start_time | asDate | date: 'EEEE, h:mm a' }}</div>
+                            <div class="abbr">{{ match.home_team.abbr }}</div>
+                            <div class="abbr">{{ match.away_team.abbr }}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<ul class="pages"></ul>-->
+            <div class="controls right">
+                <button class="btn nextPage" sly-frame="match">
+                    <i class="fa fa-angle-right fa-1x" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

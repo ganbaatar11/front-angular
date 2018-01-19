@@ -1,0 +1,194 @@
+<div>
+    <h5>Lineup Live Page</h5>
+    <div class="row">
+        <div class="large-9 column">
+            <h5>{{ contest.con_title }}</h5>
+            Starts {{contest.con_start_time | asDate | date: 'EEEE, h:mm a'}} EST
+            (<span class="link" ng-click="openGamePopup()">{{ contest.matches.length }} NBA Games</span>)
+        </div>
+        <div class="large-3 column">
+            <div class="contest-header-status">
+                <div class="title">ENTRIES</div>
+                <div>{{ contest.con_entry_count }}/{{ contest.con_entry_limit }}</div>
+            </div>
+            <div class="contest-header-status">
+                <div class="title">ENTRY FEE</div>
+                <div>{{ contest.con_entry_fee | asDollar }}</div>
+            </div>
+            <div class="contest-header-status">
+                <div class="title">PRIZE</div>
+                <div>{{ contest.con_total_prize }}</div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="column">
+            <a class="hollow button float-right"
+               ng-if="opponent"
+               ng-click="close_opponent()">
+                Close Opponent
+            </a>
+        </div>
+    </div>
+    <div class="row columns">
+        <div class="column w-45 live-lineup">
+            <table class="self-lineup">
+                <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>FPPG</th>
+                    <th>PMR</th>
+                    <th>Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="slot in lineup_slots" ng-click="openPlayerProfile($index)">
+                    <td class="detail">
+                        <div class="info">
+                            <div class="name">
+                                <a>{{ slot.player.player_firstname }} {{ slot.player.player_lastname }}</a>
+                            </div>
+                            <div class="team">
+                                <span>{{ slot.player.team.abbr }}</span>
+                                <span>{{ slot.player.game.mtc_home_score }}</span>
+                                <span>{{ slot.player.game.opponent }}</span>
+                                <span>{{ slot.player.game.mtc_away_score }}</span>
+                                <span>, {{ slot.player.game.mtc_status }}</span>
+                            </div>
+                            <div class="stats">
+                                <span ng-if="slot.player.stats.nps_min">{{ slot.player.stats.nps_min }} MIN,</span>
+                                <span ng-if="slot.player.stats.nps_pt">{{ slot.player.stats.nps_pt }} PTS,</span>
+                                <span ng-if="slot.player.stats.nps_threept">{{ slot.player.stats.nps_threept }} 3PT,</span>
+                                <span ng-if="slot.player.stats.nps_reb">{{ slot.player.stats.nps_reb }} REB,</span>
+                                <span ng-if="slot.player.stats.nps_ast">{{ slot.player.stats.nps_ast }} AST,</span>
+                                <span ng-if="slot.player.stats.nps_st">{{ slot.player.stats.nps_st }} ST,</span>
+                                <span ng-if="slot.player.stats.nps_blk">{{ slot.player.stats.nps_blk }} BLK,</span>
+                                <span ng-if="slot.player.stats.nps_to">{{ slot.player.stats.nps_to }} TO</span>
+                            </div>
+                        </div>
+                        <div class="image" background-image="{{ slot.player.player_image_url }}"></div>
+                    </td>
+                    <td> {{ slot.player.player_projected_points | number:1 }}</td>
+                    <td></td>
+                    <td> {{ slot.player.stats.nps_fpts | number:1 }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="column w-10 live-lineup">
+            <table class="pos">
+                <thead>
+                <tr>
+                    <th>Pos</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="position in contest.positions">
+                    <td>{{ position.pos_key }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="column w-45 live-lineup">
+            <table class="users" ng-if="!opponent">
+                <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>User</th>
+                    <th>Points</th>
+                    <th>PMR</th>
+                    <th>Prizes</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat-start="user in users" ng-click="show_lineup($index)">
+                    <td>{{ user.rank }}</td>
+                    <td class="user-info">
+                        <span>
+                            <img ng-src="/assets/img/default_user_profile.png" alt="Profile Picture" class="profile-picture">
+                        <a>{{ user.entry_user.name }}</a>
+                        </span>
+                    </td>
+                    <td>{{ user.score | number:1 }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr ng-repeat-end class="separator"><td colspan="5"></td></tr>
+                </tbody>
+            </table>
+            <table class="self-lineup reverse" ng-if="opponent">
+                <thead>
+                <tr>
+                    <th>Points</th>
+                    <th>PMR</th>
+                    <th>FPPG</th>
+                    <th>Player</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="slot in opponent.lineup_slots" ng-click="openPlayerProfile($index)">
+                    <td> {{ slot.player.stats.nps_fpts | number:1 }}</td>
+                    <td></td>
+                    <td> {{ slot.player.player_projected_points | number:1 }}</td>
+                    <td class="detail">
+                        <div class="image" background-image="{{ slot.player.player_image_url }}"></div>
+                        <div class="info">
+                            <div class="name">
+                                <a>{{ slot.player.player_firstname }} {{ slot.player.player_lastname }}</a>
+                            </div>
+                            <div class="team">
+                                <span>{{ slot.player.team.abbr }}</span>
+                                <span>{{ slot.player.game.mtc_home_score }}</span>
+                                <span>{{ slot.player.game.opponent }}</span>
+                                <span>{{ slot.player.game.mtc_away_score }}</span>
+                                <span>, {{ slot.player.game.mtc_status }}</span>
+                            </div>
+                            <div class="stats">
+                                <span ng-if="slot.player.stats.nps_min">{{ slot.player.stats.nps_min }} MIN,</span>
+                                <span ng-if="slot.player.stats.nps_pt">{{ slot.player.stats.nps_pt }} PTS,</span>
+                                <span ng-if="slot.player.stats.nps_threept">{{ slot.player.stats.nps_threept }} 3PT,</span>
+                                <span ng-if="slot.player.stats.nps_reb">{{ slot.player.stats.nps_reb }} REB,</span>
+                                <span ng-if="slot.player.stats.nps_ast">{{ slot.player.stats.nps_ast }} AST,</span>
+                                <span ng-if="slot.player.stats.nps_st">{{ slot.player.stats.nps_st }} ST,</span>
+                                <span ng-if="slot.player.stats.nps_blk">{{ slot.player.stats.nps_blk }} BLK,</span>
+                                <span ng-if="slot.player.stats.nps_to">{{ slot.player.stats.nps_to }} TO</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+    <div class="row column">
+        <div class="sly-horizontal wrap">
+            <div class="controls left">
+                <button class="btn prevPage" sly-frame="match">
+                    <i class="fa fa-angle-left fa-1x" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="frame" id="match">
+                <ul class="clearfix">
+                    <li ng-repeat="match in contest.matches" sly-horizontal-repeat
+                        data-sly-options="{speed: 300,mouseDragging:0}">
+                        <div class="item">
+                            <div class="date">{{ match.mtc_start_time | asDate | date: 'EEEE, h:mm a' }}</div>
+                            <div class="abbr">{{ match.home_team.abbr }}</div>
+                            <div class="abbr">{{ match.away_team.abbr }}</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<ul class="pages"></ul>-->
+            <div class="controls right">
+                <button class="btn nextPage" sly-frame="match">
+                    <i class="fa fa-angle-right fa-1x" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>

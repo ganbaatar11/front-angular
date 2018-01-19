@@ -1,0 +1,55 @@
+<div>
+    <div class="row">
+        <div class="large-5 column">
+            <h5>Export Lineup</h5>
+            Starts {{ lineup[0].contest.con_start_time | asDate | date: 'EEEE, h:mm a' }} EDT
+        </div>
+        <div class="large-4 column">
+            <span></span>
+        </div>
+    </div>
+    <hr>
+    <div class="row column">
+        <ul class="lineup-horizontal">
+            <li ng-repeat="slot in lineup_slots" class="{{ 'w-' + lineup_slots.length }}">
+                <div class="player">
+                    <div>{{ contest.positions[$index].pos_key }}</div>
+                    <img ng-src="{{ slot.player.player_image_url }}" alt="">
+                    <div>{{ slot.player.player_firstname }}</div>
+                    <div>{{ slot.player.player_lastname }}</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <hr>
+    <div class="row column">
+        <h6>Add your lineup to more contests</h6>
+    </div>
+
+    <div class="row column">
+        <div class="scroll-body" slimscroll="{size: '5',height: 200, scrollBy: '5', wheelStep: 5, distance: 0 }">
+            <table style="margin: 0">
+                <thead>
+                <tr>
+                    <td>Contest</td>
+                    <td>Entries</td>
+                    <td>Entry Fee</td>
+                    <td>Prizes</td>
+                    <td></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-hide="lineup[0].contest.con_id == contest.con_id"
+                    ng-repeat="contest in contests">
+                    <td><a>{{ contest.con_title }}</a></td>
+                    <td>{{ contest.con_entry_count + "/" + contest.con_entry_limit }}</td>
+                    <td>{{ contest.con_entry_fee | asDollar }}</td>
+                    <td>{{ contest.con_total_prize | asDollar }}</td>
+                    <td><a class="button success">+</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <hr>
+</div>
